@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 type Stats = { mood: number; full: number; energy: number; hearts: number };
-type Outfit = "none" | "crown" | "hat" | "duck";
+type Outfit = "none" | "crown" | "hat" | "duck" | "glasses";
 
 const initial: Stats = { mood: 78, full: 65, energy: 82, hearts: 12 };
 const photos = Array.from({ length: 10 }, (_, i) => `/photos/monkey-${String(i + 1).padStart(2, "0")}.jpg`);
@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <main>
       <nav className="nav">
-        <a className="brand" href="#home"><span className="brand-face">●</span><span>猴仔小窝</span></a>
+        <a className="brand" href="#home"><span className="brand-face">●</span><span>monkey Web</span></a>
         <div className="nav-links"><a href="#play">陪伴</a><a href="#closet">衣橱</a><a href="#album">回忆册</a></div>
         <div className="level">♥ {stats.hearts} · Lv.{level}</div>
       </nav>
@@ -78,9 +78,10 @@ export default function Home() {
             <div className="speech">{message}</div>
             <div className={`mini-monkey ${action}`} onClick={() => play("pet")} role="button" tabIndex={0} aria-label="摸摸猴仔" onKeyDown={(e) => e.key === "Enter" && play("pet")}>
               <img src="/houzai-character.png" alt="张开手臂等你互动的绒毛猴仔" />
-              {outfit === "crown" && <div className="wear crown">♛</div>}
-              {outfit === "hat" && <div className="wear hat">⌒</div>}
-              {outfit === "duck" && <div className="wear duck">●</div>}
+              {outfit === "crown" && <div className="accessory crown-real"><i/><i/><i/><i/><b/></div>}
+              {outfit === "hat" && <div className="accessory safari-hat"><i/><b/><span/></div>}
+              {outfit === "duck" && <div className="accessory duck-party"><i/><i/><i/></div>}
+              {outfit === "glasses" && <div className="accessory glasses-real"><i/><i/><b/><span/><span/></div>}
             </div>
             <div className="rug"/>
           </div>
@@ -102,7 +103,7 @@ export default function Home() {
       <section className="closet" id="closet">
         <div><p className="eyebrow">HOUZAI'S CLOSET</p><h2>今天戴哪一顶？</h2><p>给猴仔选一件心情配饰，拍下今日份可爱。</p></div>
         <div className="outfits">
-          {[{id:"none",icon:"○",name:"原本就很可爱"},{id:"crown",icon:"♛",name:"生日小王冠"},{id:"hat",icon:"⌒",name:"度假遮阳帽"},{id:"duck",icon:"●",name:"小黄鸭派对"}].map((item) => (
+          {[{id:"none",icon:"○",name:"原本就很可爱"},{id:"crown",icon:"♛",name:"生日小王冠"},{id:"hat",icon:"◒",name:"文莱探险帽"},{id:"duck",icon:"●●●",name:"小黄鸭派对"},{id:"glasses",icon:"◎—◎",name:"玳瑁框眼镜"}].map((item) => (
             <button key={item.id} className={outfit === item.id ? "selected" : ""} onClick={() => {setOutfit(item.id as Outfit); setMessage(item.id === "none" ? "轻装上阵，也很神气！" : `新造型「${item.name}」怎么样？`);}}><span>{item.icon}</span><b>{item.name}</b><small>{outfit === item.id ? "正在穿戴" : "点击试穿"}</small></button>
           ))}
         </div>

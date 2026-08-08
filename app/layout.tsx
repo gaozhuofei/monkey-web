@@ -9,10 +9,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const base = new URL(`${protocol}://${host}`);
   return {
     metadataBase: base,
-    title: "猴仔小窝｜永远在你身边的口袋朋友",
+    title: "monkey Web｜永远在你身边的口袋朋友",
     description: "和猴仔摸摸头、吃香蕉、玩耍、换装，把陪伴装进口袋。",
-    openGraph: { title: "猴仔小窝", description: "我一直在这里。", images: [new URL("/og.png", base).toString()] },
-    twitter: { card: "summary_large_image", title: "猴仔小窝", description: "我一直在这里。", images: [new URL("/og.png", base).toString()] },
+    openGraph: { title: "monkey Web", description: "我一直在这里。" },
+    twitter: { card: "summary_large_image", title: "monkey Web", description: "我一直在这里。" },
   };
 }
 
