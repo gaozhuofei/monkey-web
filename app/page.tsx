@@ -24,6 +24,15 @@ export default function Home() {
   useEffect(() => localStorage.setItem("houzai-state", JSON.stringify(stats)), [stats]);
 
   const level = useMemo(() => Math.max(1, Math.floor(stats.hearts / 5)), [stats.hearts]);
+  const characterFile = action === "banana"
+    ? "houzai-banana.png"
+    : outfit === "hat"
+      ? "houzai-hat.png"
+      : outfit === "glasses"
+        ? "houzai-glasses.png"
+        : outfit === "duck"
+          ? "houzai-ducks.png"
+          : "houzai-character.png";
 
   function play(kind: string) {
     const actions: Record<string, { msg: string; mood: number; full: number; energy: number; hearts: number }> = {
@@ -41,7 +50,7 @@ export default function Home() {
       energy: Math.min(100, Math.max(0, s.energy + a.energy)),
       hearts: s.hearts + a.hearts,
     }));
-    window.setTimeout(() => setAction(""), 900);
+    window.setTimeout(() => setAction(""), kind === "banana" ? 1800 : 900);
   }
 
   return (
@@ -78,11 +87,8 @@ export default function Home() {
             <div className="room-top"><span>猴仔的客厅</span><span className="online">● 正在等你</span></div>
             <div className="speech">{message}</div>
             <div className={`mini-monkey ${action}`} onClick={() => play("pet")} role="button" tabIndex={0} aria-label="摸摸猴仔" onKeyDown={(e) => e.key === "Enter" && play("pet")}>
-              <img src={`${basePath}/houzai-character.png`} alt="张开手臂等你互动的绒毛猴仔" />
+              <img src={`${basePath}/${characterFile}`} alt={action === "banana" ? "双手抱着香蕉准备吃的猴仔" : "张开手臂等你互动的绒毛猴仔"} />
               {outfit === "crown" && <div className="accessory crown-real"><i/><i/><i/><i/><b/></div>}
-              {outfit === "hat" && <div className="accessory safari-hat"><i/><b/><span/></div>}
-              {outfit === "duck" && <div className="accessory duck-party"><i/><i/><i/></div>}
-              {outfit === "glasses" && <div className="accessory glasses-real"><i/><i/><b/><span/><span/></div>}
             </div>
             <div className="rug"/>
           </div>
