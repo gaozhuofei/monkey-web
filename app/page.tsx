@@ -6,7 +6,8 @@ type Stats = { mood: number; full: number; energy: number; hearts: number };
 type Outfit = "none" | "crown" | "hat" | "duck" | "glasses";
 
 const initial: Stats = { mood: 78, full: 65, energy: 82, hearts: 12 };
-const photos = Array.from({ length: 10 }, (_, i) => `/photos/monkey-${String(i + 1).padStart(2, "0")}.jpg`);
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const photos = Array.from({ length: 10 }, (_, i) => `${basePath}/photos/monkey-${String(i + 1).padStart(2, "0")}.jpg`);
 
 export default function Home() {
   const [stats, setStats] = useState<Stats>(initial);
@@ -62,7 +63,7 @@ export default function Home() {
         <div className="portrait-wrap">
           <div className="sun sun-one"/><div className="sun sun-two"/>
           <div className={`portrait ${action}`} onClick={() => play("pet")} role="button" tabIndex={0} aria-label="摸摸猴仔" onKeyDown={(e) => e.key === "Enter" && play("pet")}>
-            <img src="/photos/monkey-01.jpg" alt="坐在沙发上的猴仔公仔" />
+            <img src={`${basePath}/photos/monkey-01.jpg`} alt="坐在沙发上的猴仔公仔" />
             <span className="tap-badge">轻轻摸摸我</span>
             {action === "pet" && <span className="float-heart">♥</span>}
           </div>
@@ -77,7 +78,7 @@ export default function Home() {
             <div className="room-top"><span>猴仔的客厅</span><span className="online">● 正在等你</span></div>
             <div className="speech">{message}</div>
             <div className={`mini-monkey ${action}`} onClick={() => play("pet")} role="button" tabIndex={0} aria-label="摸摸猴仔" onKeyDown={(e) => e.key === "Enter" && play("pet")}>
-              <img src="/houzai-character.png" alt="张开手臂等你互动的绒毛猴仔" />
+              <img src={`${basePath}/houzai-character.png`} alt="张开手臂等你互动的绒毛猴仔" />
               {outfit === "crown" && <div className="accessory crown-real"><i/><i/><i/><i/><b/></div>}
               {outfit === "hat" && <div className="accessory safari-hat"><i/><b/><span/></div>}
               {outfit === "duck" && <div className="accessory duck-party"><i/><i/><i/></div>}
