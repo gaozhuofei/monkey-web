@@ -23,6 +23,13 @@ export default function Home() {
 
   useEffect(() => localStorage.setItem("houzai-state", JSON.stringify(stats)), [stats]);
 
+  useEffect(() => {
+    ["houzai-hat.png", "houzai-glasses.png", "houzai-ducks.png", "houzai-banana.png"].forEach((file) => {
+      const image = new Image();
+      image.src = `${basePath}/${file}`;
+    });
+  }, []);
+
   const level = useMemo(() => Math.max(1, Math.floor(stats.hearts / 5)), [stats.hearts]);
   const characterFile = action === "banana"
     ? "houzai-banana.png"
@@ -50,6 +57,7 @@ export default function Home() {
       energy: Math.min(100, Math.max(0, s.energy + a.energy)),
       hearts: s.hearts + a.hearts,
     }));
+    if (window.innerWidth <= 800) window.setTimeout(() => document.getElementById("monkey-stage")?.scrollIntoView({ behavior: "smooth", block: "center" }), 80);
     window.setTimeout(() => setAction(""), kind === "banana" ? 1800 : 900);
   }
 
@@ -86,8 +94,8 @@ export default function Home() {
           <div className="room-card">
             <div className="room-top"><span>猴仔的客厅</span><span className="online">● 正在等你</span></div>
             <div className="speech">{message}</div>
-            <div className={`mini-monkey ${action}`} onClick={() => play("pet")} role="button" tabIndex={0} aria-label="摸摸猴仔" onKeyDown={(e) => e.key === "Enter" && play("pet")}>
-              <img src={`${basePath}/${characterFile}`} alt={action === "banana" ? "双手抱着香蕉准备吃的猴仔" : "张开手臂等你互动的绒毛猴仔"} />
+            <div id="monkey-stage" className={`mini-monkey ${action}`} onClick={() => play("pet")} role="button" tabIndex={0} aria-label="摸摸猴仔" onKeyDown={(e) => e.key === "Enter" && play("pet")}>
+              <img key={characterFile} src={`${basePath}/${characterFile}`} alt={action === "banana" ? "双手抱着香蕉准备吃的猴仔" : "张开手臂等你互动的绒毛猴仔"} />
               {outfit === "crown" && <div className="accessory crown-real"><i/><i/><i/><i/><b/></div>}
             </div>
             <div className="rug"/>
@@ -109,6 +117,7 @@ export default function Home() {
 
       <section className="closet" id="closet">
         <div><p className="eyebrow">HOUZAI'S CLOSET</p><h2>今天戴哪一顶？</h2><p>给猴仔选一件心情配饰，拍下今日份可爱。</p></div>
+        <div className="closet-preview" aria-live="polite"><img key={`closet-${characterFile}`} src={`${basePath}/${characterFile}`} alt="猴仔当前换装预览"/><span>当前造型</span></div>
         <div className="outfits">
           {[{id:"none",icon:"○",name:"原本就很可爱"},{id:"crown",icon:"♛",name:"生日小王冠"},{id:"hat",icon:"◒",name:"文莱探险帽"},{id:"duck",icon:"●●●",name:"小黄鸭派对"},{id:"glasses",icon:"◎—◎",name:"玳瑁框眼镜"}].map((item) => (
             <button key={item.id} className={outfit === item.id ? "selected" : ""} onClick={() => {setOutfit(item.id as Outfit); setMessage(item.id === "none" ? "轻装上阵，也很神气！" : `新造型「${item.name}」怎么样？`);}}><span>{item.icon}</span><b>{item.name}</b><small>{outfit === item.id ? "正在穿戴" : "点击试穿"}</small></button>
