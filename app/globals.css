@@ -39,3 +39,24 @@
   .closet-crown{top:11%;z-index:8;transform:translateX(-50%) scale(1.05)}
   .outfits{order:3!important;position:relative;z-index:2;width:100%;margin-top:0}
 }
+
+/* Phone-sized closet: the entire dresser fits into one viewport. */
+@media(max-width:800px){
+  .closet{min-height:100svh;padding:22px 14px 24px!important;gap:10px!important;justify-content:flex-start}
+  .closet>div:first-child{text-align:center}
+  .closet>div:first-child .eyebrow{margin-bottom:5px;font-size:10px}
+  .closet>div:first-child h2{font-size:28px;line-height:1.08}
+  .closet>div:first-child p:last-child{margin:6px auto 0;font-size:12px;line-height:1.4}
+  .closet-preview{height:min(38svh,300px)!important;aspect-ratio:auto;min-height:230px;max-height:300px;background:radial-gradient(circle,#75584a 0,transparent 70%)}
+  .closet-preview img{padding:2px 0 18px}
+  .closet-preview span{bottom:2px;padding:5px 10px}
+  .outfits{grid-template-columns:repeat(3,1fr)!important;gap:7px!important}
+  .outfits button{min-height:82px!important;padding:7px 4px}
+  .outfits span{font-size:27px;line-height:1}
+  .outfits b{font-size:10px;line-height:1.2}
+  .outfits small{font-size:9px}
+}
+@media(max-width:380px) and (max-height:720px){
+  .closet-preview{height:31svh!important;min-height:190px}
+  .outfits button{min-height:72px!important}
+}
