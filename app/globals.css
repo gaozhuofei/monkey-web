@@ -28,3 +28,14 @@
 .closet-preview span{position:absolute;bottom:5px;background:#f4d16b;color:#453026;border-radius:20px;padding:6px 12px;font-size:10px;font-weight:800}
 @keyframes outfit-in{from{opacity:.35;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 @media(max-width:800px){.closet{grid-template-columns:1fr;gap:22px}.closet-preview{height:330px;order:2}.outfits{order:3}}
+
+.closet-crown{top:12%;transform:translateX(-50%) scale(1.25)}
+@media(max-width:800px){
+  .closet{display:flex!important;flex-direction:column;align-items:stretch;gap:24px;padding-top:60px;padding-bottom:60px}
+  .closet>div:first-child{order:1}
+  .closet-preview{order:2!important;position:relative;width:100%;height:auto!important;aspect-ratio:3/4;max-height:520px;overflow:hidden;flex:none}
+  .closet-preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center center}
+  .closet-preview span{z-index:7;bottom:12px}
+  .closet-crown{top:11%;z-index:8;transform:translateX(-50%) scale(1.05)}
+  .outfits{order:3!important;position:relative;z-index:2;width:100%;margin-top:0}
+}

@@ -117,7 +117,11 @@ export default function Home() {
 
       <section className="closet" id="closet">
         <div><p className="eyebrow">HOUZAI'S CLOSET</p><h2>今天戴哪一顶？</h2><p>给猴仔选一件心情配饰，拍下今日份可爱。</p></div>
-        <div className="closet-preview" aria-live="polite"><img key={`closet-${characterFile}`} src={`${basePath}/${characterFile}`} alt="猴仔当前换装预览"/><span>当前造型</span></div>
+        <div className="closet-preview" aria-live="polite">
+          <img key={`closet-${characterFile}`} src={`${basePath}/${characterFile}`} alt="猴仔当前换装预览"/>
+          {outfit === "crown" && <div className="accessory crown-real closet-crown"><i/><i/><i/><i/><b/></div>}
+          <span>当前造型</span>
+        </div>
         <div className="outfits">
           {[{id:"none",icon:"○",name:"原本就很可爱"},{id:"crown",icon:"♛",name:"生日小王冠"},{id:"hat",icon:"◒",name:"文莱探险帽"},{id:"duck",icon:"●●●",name:"小黄鸭派对"},{id:"glasses",icon:"◎—◎",name:"玳瑁框眼镜"}].map((item) => (
             <button key={item.id} className={outfit === item.id ? "selected" : ""} onClick={() => {setOutfit(item.id as Outfit); setMessage(item.id === "none" ? "轻装上阵，也很神气！" : `新造型「${item.name}」怎么样？`);}}><span>{item.icon}</span><b>{item.name}</b><small>{outfit === item.id ? "正在穿戴" : "点击试穿"}</small></button>
