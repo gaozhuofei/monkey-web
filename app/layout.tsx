@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const isPages = process.env.NEXT_PUBLIC_BASE_PATH === "/monkey-web";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(isPages ? "https://gaozhuofei.github.io/monkey-web/" : "https://houzai-pocket-friend.gpp960323.chatgpt.site/"),
@@ -12,5 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="zh-CN"><body>{children}</body></html>;
+  return <html lang="zh-CN"><head><link rel="stylesheet" href={`${basePath}/site.css`} /></head><body>{children}</body></html>;
 }
