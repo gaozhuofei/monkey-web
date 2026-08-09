@@ -26,6 +26,12 @@
 .closet-preview{position:relative;height:300px;display:grid;place-items:center;background:radial-gradient(circle,#75584a 0,transparent 68%)}
 .closet-preview img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 15px 10px rgba(0,0,0,.25));animation:outfit-in .35s ease}
 .closet-preview span{position:absolute;bottom:5px;background:#f4d16b;color:#453026;border-radius:20px;padding:6px 12px;font-size:10px;font-weight:800}
+.closet-preview .closet-glasses{display:block;left:50%;top:18.5%;bottom:auto;width:31%;min-width:112px;max-width:146px;height:19%;min-height:50px;max-height:68px;transform:translateX(-50%);z-index:6;padding:0;background:none;border-radius:0;color:transparent;filter:drop-shadow(0 3px 2px rgba(30,20,15,.35));pointer-events:none}
+.closet-glasses i{position:absolute;top:4%;width:45%;height:82%;border:6px solid #2e211b;border-radius:48% 48% 52% 52%;background:linear-gradient(135deg,rgba(255,255,255,.3),rgba(192,215,218,.08));box-shadow:inset 0 0 0 2px #9d7651}
+.closet-glasses i:first-child{left:1%;transform:rotate(3deg)}.closet-glasses i:nth-child(2){right:1%;transform:rotate(-3deg)}
+.closet-glasses b{position:absolute;left:43%;top:25%;width:16%;height:10px;border-top:6px solid #2e211b;border-radius:50%}
+.closet-glasses em{position:absolute;top:15%;width:20%;height:6px;background:#2e211b;border-radius:5px}.closet-glasses em:nth-of-type(1){left:-15%;transform:rotate(10deg)}.closet-glasses em:nth-of-type(2){right:-15%;transform:rotate(-10deg)}
+.outfits button.accessory-selected{box-shadow:inset 0 0 0 3px #fff0b5,0 8px 18px rgba(0,0,0,.18)}
 @keyframes outfit-in{from{opacity:.35;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 @media(max-width:800px){.closet{grid-template-columns:1fr;gap:22px}.closet-preview{height:330px;order:2}.outfits{order:3}}
 

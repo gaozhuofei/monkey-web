@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 type Stats = { mood: number; full: number; energy: number; hearts: number };
-type Outfit = "none" | "crown" | "hat" | "duck" | "glasses";
+type Outfit = "none" | "crown" | "hat" | "duck";
 
 const initial: Stats = { mood: 78, full: 65, energy: 82, hearts: 12 };
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -12,6 +12,7 @@ const photos = Array.from({ length: 10 }, (_, i) => `${basePath}/photos/monkey-$
 export default function Home() {
   const [stats, setStats] = useState<Stats>(initial);
   const [outfit, setOutfit] = useState<Outfit>("none");
+  const [wearingGlasses, setWearingGlasses] = useState(false);
   const [message, setMessage] = useState("今天也要和你黏在一起！");
   const [action, setAction] = useState("");
   const [activePhoto, setActivePhoto] = useState<string | null>(null);
@@ -37,9 +38,7 @@ export default function Home() {
       ? "houzai-crown.png"
       : outfit === "hat"
       ? "houzai-hat.png"
-      : outfit === "glasses"
-        ? "houzai-glasses.png"
-        : outfit === "duck"
+      : outfit === "duck"
           ? "houzai-ducks.png"
           : "houzai-character.png";
 
@@ -120,12 +119,14 @@ export default function Home() {
         <div><p className="eyebrow">HOUZAI'S CLOSET</p><h2>今天戴哪一顶？</h2><p>给猴仔选一件心情配饰，拍下今日份可爱。</p></div>
         <div className="closet-preview" aria-live="polite">
           <img key={`closet-${characterFile}`} src={`${basePath}/${characterFile}`} alt="猴仔当前换装预览"/>
+          {wearingGlasses && <span className="closet-glasses" aria-hidden="true"><i/><i/><b/><em/><em/></span>}
           <span>当前造型</span>
         </div>
         <div className="outfits">
-          {[{id:"none",icon:"○",name:"原本就很可爱"},{id:"crown",icon:"♛",name:"生日小王冠"},{id:"hat",icon:"◒",name:"文莱探险帽"},{id:"duck",icon:"●●●",name:"小黄鸭派对"},{id:"glasses",icon:"◎—◎",name:"玳瑁框眼镜"}].map((item) => (
+          {[{id:"none",icon:"○",name:"原本就很可爱"},{id:"crown",icon:"♛",name:"生日小王冠"},{id:"hat",icon:"◒",name:"文莱探险帽"},{id:"duck",icon:"●●●",name:"小黄鸭派对"}].map((item) => (
             <button key={item.id} className={outfit === item.id ? "selected" : ""} onClick={() => {setOutfit(item.id as Outfit); setMessage(item.id === "none" ? "轻装上阵，也很神气！" : `新造型「${item.name}」怎么样？`);}}><span>{item.icon}</span><b>{item.name}</b><small>{outfit === item.id ? "正在穿戴" : "点击试穿"}</small></button>
           ))}
+          <button className={wearingGlasses ? "selected accessory-selected" : ""} onClick={() => {setWearingGlasses((value) => !value); setMessage(wearingGlasses ? "摘下眼镜，放松一下！" : "戴上眼镜，和其他装扮也很配！");}}><span>◎—◎</span><b>玳瑁框眼镜</b><small>{wearingGlasses ? "已叠加 · 点击摘下" : "可与其他装扮叠加"}</small></button>
         </div>
       </section>
 
