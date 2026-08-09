@@ -25,7 +25,7 @@ export default function Home() {
   useEffect(() => localStorage.setItem("houzai-state", JSON.stringify(stats)), [stats]);
 
   useEffect(() => {
-    ["houzai-crown.png", "houzai-hat.png", "houzai-glasses.png", "houzai-ducks.png", "houzai-banana.png"].forEach((file) => {
+    ["houzai-crown.png", "houzai-hat.png", "houzai-glasses.png", "houzai-glasses-overlay.png", "houzai-ducks.png", "houzai-banana.png"].forEach((file) => {
       const image = new Image();
       image.src = `${basePath}/${file}`;
     });
@@ -97,6 +97,7 @@ export default function Home() {
             <div className="speech">{message}</div>
             <div id="monkey-stage" className={`mini-monkey ${action}`} onClick={() => play("pet")} role="button" tabIndex={0} aria-label="摸摸猴仔" onKeyDown={(e) => e.key === "Enter" && play("pet")}>
               <img key={characterFile} src={`${basePath}/${characterFile}`} alt={action === "banana" ? "双手抱着香蕉准备吃的猴仔" : "张开手臂等你互动的绒毛猴仔"} />
+              {wearingGlasses && action !== "banana" && <img className="stage-glasses-img" src={`${basePath}/houzai-glasses-overlay.png`} alt="" aria-hidden="true"/>}
             </div>
             <div className="rug"/>
           </div>
@@ -119,7 +120,7 @@ export default function Home() {
         <div><p className="eyebrow">HOUZAI'S CLOSET</p><h2>今天戴哪一顶？</h2><p>给猴仔选一件心情配饰，拍下今日份可爱。</p></div>
         <div className="closet-preview" aria-live="polite">
           <img key={`closet-${characterFile}`} src={`${basePath}/${characterFile}`} alt="猴仔当前换装预览"/>
-          {wearingGlasses && <span className="closet-glasses" aria-hidden="true"><i/><i/><b/><em/><em/></span>}
+          {wearingGlasses && <img className="closet-glasses-img" src={`${basePath}/houzai-glasses-overlay.png`} alt="" aria-hidden="true"/>}
           <span>当前造型</span>
         </div>
         <div className="outfits">
