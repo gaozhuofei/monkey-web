@@ -25,16 +25,14 @@ export default function Home() {
   useEffect(() => localStorage.setItem("houzai-state", JSON.stringify(stats)), [stats]);
 
   useEffect(() => {
-    ["houzai-crown.png", "houzai-hat.png", "houzai-glasses.png", "houzai-crown-glasses.png", "houzai-hat-glasses.png", "houzai-ducks-glasses.png", "houzai-ducks.png", "houzai-banana.png"].forEach((file) => {
+    ["houzai-crown.png", "houzai-hat.png", "houzai-glasses.png", "houzai-crown-glasses.png", "houzai-hat-glasses.png", "houzai-ducks-glasses.png", "houzai-ducks.png", "houzai-banana-overlay.png"].forEach((file) => {
       const image = new Image();
       image.src = `${basePath}/${file}`;
     });
   }, []);
 
   const level = useMemo(() => Math.max(1, Math.floor(stats.hearts / 5)), [stats.hearts]);
-  const characterFile = action === "banana"
-    ? "houzai-banana.png"
-    : wearingGlasses
+  const characterFile = wearingGlasses
       ? outfit === "crown"
         ? "houzai-crown-glasses.png"
         : outfit === "hat"
@@ -104,7 +102,8 @@ export default function Home() {
             <div className="room-top"><span>猴仔的客厅</span><span className="online">● 正在等你</span></div>
             <div className="speech">{message}</div>
             <div id="monkey-stage" className={`mini-monkey ${action}`} onClick={() => play("pet")} role="button" tabIndex={0} aria-label="摸摸猴仔" onKeyDown={(e) => e.key === "Enter" && play("pet")}>
-              <img key={characterFile} src={`${basePath}/${characterFile}`} alt={action === "banana" ? "双手抱着香蕉准备吃的猴仔" : "张开手臂等你互动的绒毛猴仔"} />
+              <img key={characterFile} src={`${basePath}/${characterFile}`} alt="穿着当前装扮、张开手臂等你互动的绒毛猴仔" />
+              {action === "banana" && <img className="banana-overlay" src={`${basePath}/houzai-banana-overlay.png`} alt="一根递到猴仔手中的香蕉"/>}
             </div>
             <div className="rug"/>
           </div>
